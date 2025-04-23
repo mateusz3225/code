@@ -15,7 +15,7 @@
             font-size: 20px;
             cursor: url('images/Overcursor.png'), pointer;
             text-align: center;
-            
+            opacity: 1;
         }
         #timer {
             display: flex;
@@ -32,12 +32,25 @@
             height: 100vh;
             margin: 0;
         }
+        #textbox {
+            color: green;
+            font-size: 24px;
+            
+            transition: opacity 2s ease;
+            opacity: 1;
+        }
+        .hidden {
+        display: none;
+        }
     </style>
 </head>
 <body>
    
-    <div id="timer">-</div>
-    <div id="upgrade" ><img src="images/upgradeImage1.png" style="width: 100%; height: 100%; object-fit: contain;"></div>
+    <div id="timer" draggable="false">-</div>
+    <div id="upgrade" draggable="false"><img src="images/upgradeImage1.png" style="width: 100%; height: 100%; object-fit: contain;"></div>
+    <div id="upgrade2" draggable="false"><img src="" style="width: 100%; height: 100%; object-fit: contain;"></div>
+
+    <div id="textbox" draggable="false"></div>
 </body>
 <script src="scripts.js"></script>
 </html>
