@@ -25,20 +25,20 @@ function formatNumber(timerValue) {
   }
   
 
-  const upgrade = document.getElementById("upgrade");
-  let upgradeCost = 1000;
+  
   // Upgrade button click event
-  upgrade.addEventListener("click", () => {
+  function handleUpgrade(upgrade,upgradeCost, increaseValue) {
+  upgrade.addEventListener("click", () => { 
     if (timerValue >= upgradeCost) {
       
       timerValue -= upgradeCost; // Deduct the cost
       localStorage.setItem("gold", timerValue); // Save the updated value
       textboxElement.style.color = "green"; // Change text color to red
       updateTimer(); // Update the display
-      increase += 1;
+      increase += increaseValue;
       localStorage.setItem("increaseInt", increase); // Save the updated increase value
       textboxElement.textContent = `Upgrade purchased!`; 
-      
+    
     upgrade.style.opacity = "0.5"; // Make the button semi-transparent
     setTimeout(() => {
       upgrade.style.opacity = '1';
@@ -52,22 +52,52 @@ function formatNumber(timerValue) {
         
       }
   // Tring to make fade out effect for the textbox
-  if (textboxElement.style.opacity === "1") {
-  setTimeout(() => {
-    textboxElement.style.opacity = "0";
-  }, 1000);} else {
- textboxElement.style.transition = "none";
-  wow = setTimeout(() => {
-    textboxElement.style.opacity = "1";
-    
-  }, 1);  textboxElement.style.transition = "opacity 2s ease";
-  setTimeout(() => {
-    textboxElement.style.opacity = "0";
-  }, 1000);}
-  });
+  fadeout();
+  });  
+  
+}
 // Prevent dragging of elements with draggable="false"
 document.querySelectorAll('[draggable="false"]').forEach(element => {
   element.addEventListener('dragstart', event => {
     event.preventDefault();
+
   });
 });
+// simple upgrades
+const upgrade = document.getElementById("upgrade");
+const upgrade2 = document.getElementById("upgrade2");
+handleUpgrade(upgrade, 1000, 1); // Upgrade 1: Cost 10 gold, increase by 1
+handleUpgrade(upgrade2, 10000, 10); // Upgrade 1: Cost 10 gold, increase by 1
+
+// fades the textbox
+function fadeout() {
+  if (textboxElement.style.opacity === "1") {
+    setTimeout(() => {
+      textboxElement.style.opacity = "0";
+    }, 1000);} else {
+   textboxElement.style.transition = "none";
+    wow = setTimeout(() => {
+      textboxElement.style.opacity = "1";
+      
+    }, 1);  textboxElement.style.transition = "opacity 2s ease";
+    setTimeout(() => {
+      textboxElement.style.opacity = "0";
+    }, 1000);}
+    };  
+//make reset button
+const resetButton = document.getElementById("reset");
+resetButton.addEventListener("click", () => {
+  const confirmReset = confirm("Are you sure you want to reset your progress?");
+  if (confirmReset) {
+  localStorage.removeItem("gold"); // Remove the gold value from local storage
+  localStorage.removeItem("increaseInt"); // Remove the increase value from local storage
+  timerValue = 0; // Reset the timer value to 0
+  increase = 1; // Reset the increase value to 1
+  updateTimer(); // Update the display
+  textboxElement.style.transition = "opacity 2s ease"; // Set the transition for opacity
+  textboxElement.textContent = `Game reset!`;
+  fadeout(); 
+  }
+});
+
+
