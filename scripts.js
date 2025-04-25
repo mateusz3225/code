@@ -1,4 +1,6 @@
 const timerElement = document.getElementById("timer");
+const upgradeamount = document.getElementById("upgradeamount");
+const upgrade2amount = document.getElementById("upgrade2amount");
 let timerValue = parseInt(localStorage.getItem("gold")) || 0;
 let increase = parseInt(localStorage.getItem("increaseInt")) || 1;
 let textboxElement = document.getElementById("textbox");
@@ -12,6 +14,7 @@ function updateTimer() {
   timerElement.textContent = `Gold: ${formatNumber(timerValue)} nuggets`;}
   localStorage.setItem("gold", timerValue);
 }
+
 updateTimer(); // Initial call to set the timer value immediately
 setInterval(updateTimer, 1000);
 //changes the display of the timer value to a more readable format
@@ -27,9 +30,14 @@ function formatNumber(timerValue) {
 
   
   // Upgrade button click event
-  function handleUpgrade(upgrade,upgradeCost, increaseValue) {
+  function handleUpgrade(upgrade,upgradeCost, increaseValue,counterElement,counterID) {
   upgrade.addEventListener("click", () => { 
     if (timerValue >= upgradeCost) {
+      let counterValue = parseInt(localStorage.getItem(`${counterElement}`)) || 0; // Get the current counter value
+      counterValue += 1; // Increment the counter value
+      localStorage.setItem(`${counterElement}`, counterValue); // Save the updated counter value
+      counterID2 = document.getElementById(`${counterID}`);
+      counterID2.textContent = `${counterValue}`; 
       
       timerValue -= upgradeCost; // Deduct the cost
       localStorage.setItem("gold", timerValue); // Save the updated value
@@ -38,7 +46,7 @@ function formatNumber(timerValue) {
       increase += increaseValue;
       localStorage.setItem("increaseInt", increase); // Save the updated increase value
       textboxElement.textContent = `Upgrade purchased!`; 
-    
+      
     upgrade.style.opacity = "0.5"; // Make the button semi-transparent
     setTimeout(() => {
       upgrade.style.opacity = '1';
@@ -66,8 +74,15 @@ document.querySelectorAll('[draggable="false"]').forEach(element => {
 // simple upgrades
 const upgrade = document.getElementById("upgrade");
 const upgrade2 = document.getElementById("upgrade2");
-handleUpgrade(upgrade, 1000, 1); // Upgrade 1: Cost 10 gold, increase by 1
-handleUpgrade(upgrade2, 10000, 10); // Upgrade 1: Cost 10 gold, increase by 1
+counter1 = document.getElementById("upgradeamount");
+counter2 = document.getElementById("upgrade2amount");
+let counterAmount1 = parseInt(localStorage.getItem("Amount1")) || 0;
+let counterAmount2 = parseInt(localStorage.getItem("Amount2")) || 0;
+handleUpgrade(upgrade, 1000, 1, "Amount1","upgradeamount");
+handleUpgrade(upgrade2, 10000, 10, "Amount2","upgrade2amount"); 
+counter1.textContent = `${counterAmount1}`; 
+counter2.textContent = `${counterAmount2}`;
+
 
 // fades the textbox
 function fadeout() {
@@ -97,8 +112,14 @@ resetButton.addEventListener("click", () => {
   textboxElement.style.transition = "opacity 2s ease"; // Set the transition for opacity
   textboxElement.textContent = `Game reset!`;
   textboxElement.style.color = "white"; // Change text color to red
+  localStorage.removeItem("Amount1"); // Remove the counter value from local storage
+  localStorage.removeItem("Amount2"); // Remove the counter value from local storage
+  counter1.textContent = "0"; 
+  counter2.textContent ="0";
   fadeout(); 
   }
 });
+
+
 
 

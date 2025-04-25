@@ -82,3 +82,11 @@ body {
     -ms-user-select: none;     /* For Internet Explorer/Edge */
     user-select: none; 
 }
+#upgradeamount{
+    position: absolute;
+    bottom: -20px;     
+}
+#upgrade2amount{ 
+    position: absolute;
+    bottom: -20px; 
+}
