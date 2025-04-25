@@ -96,6 +96,7 @@ resetButton.addEventListener("click", () => {
   updateTimer(); // Update the display
   textboxElement.style.transition = "opacity 2s ease"; // Set the transition for opacity
   textboxElement.textContent = `Game reset!`;
+  textboxElement.style.color = "white"; // Change text color to red
   fadeout(); 
   }
 });

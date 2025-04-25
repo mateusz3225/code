@@ -76,3 +76,9 @@ display: none;
     cursor: url('images/Overcursor.png'), pointer;
     font-weight: bold;
 }
+body {
+    -webkit-user-select: none; /* For Chrome, Safari, and Edge */
+    -moz-user-select: none;    /* For Firefox */
+    -ms-user-select: none;     /* For Internet Explorer/Edge */
+    user-select: none; 
+}
