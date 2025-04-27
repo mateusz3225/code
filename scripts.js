@@ -119,7 +119,121 @@ resetButton.addEventListener("click", () => {
   fadeout(); 
   }
 });
+//Making a player move
+const player = document.getElementById("player");
+let playerX = 50;
+let playerY = 50;
 
+let isFlipped = false; // Track if the image is flipped
+function updatePlayerPosition() {
+  
+  player.style.left = `${playerX}%`;
+  player.style.top = `${playerY}%`;
+}
+const keysPressed = {};
+const step = 2;
+document.addEventListener("keydown", (event) => {
+  keysPressed[event.key] = true; // Mark the key as pressed
+});
 
+document.addEventListener("keyup", (event) => {
+  keysPressed[event.key] = false; // Mark the key as released
+});
+    
+// Handle movement based on key presses
+    function handleMovement() {
+      if (keysPressed["ArrowUp"]) {
+        playerY = Math.max(0, playerY - step); // Move up
+      }
+      if (keysPressed["ArrowDown"]) {
+        playerY = Math.min(100, playerY + step); // Move down
+      }
+      if (keysPressed["ArrowLeft"]) {
+        playerX = Math.max(0, playerX - step); // Move left
+        if (!isFlipped) {
+          player.style.transform = "scaleX(-1)"; // Flip the image horizontally
+          isFlipped = true;
+        }
+      }
+      if (keysPressed["ArrowRight"]) {
+        playerX = Math.min(100, playerX + step); // Move right
+        if (isFlipped) {
+          player.style.transform = "scaleX(1)"; // Reset the image to normal
+          isFlipped = false;
+        }
+      }
+      updatePlayerPosition();
+    }
 
+  
+  
+  updatePlayerPosition();
+  setInterval(handleMovement, 16);
+  
+// SPAWNING GOLD
+const spawn = {
+  elements: [], // Array to store spawned elements
+  spawnInterval: 2000, // Time interval for spawning (in milliseconds)
+  maxElements: 10, // Maximum number of elements allowed on screen
 
+  // Initialize the spawn system
+  init() {
+    setInterval(() => {
+      this.spawnElement();
+    }, this.spawnInterval);
+    setInterval(() => {
+      this.checkCollisions();
+    }, 16);
+  },
+
+  // Spawn a new element
+  spawnElement() {
+    if (this.elements.length >= this.maxElements) return; // Limit the number of elements
+
+    const newElement = document.createElement("div");
+    newElement.classList.add("spawned-element");
+    newElement.style.position = "absolute";
+    newElement.style.left = `${Math.random() * 100}%`; // Random horizontal position
+    newElement.style.top = `${Math.random() * 100}%`; // Random vertical position
+    document.body.appendChild(newElement);
+    
+    this.elements.push(newElement);
+
+    // Automatically remove the element after a certain time
+    //setTimeout(() => {
+      //this.removeElement(newElement);
+    //}, 5000); // Remove after 5 seconds
+  },
+  checkCollisions() {
+    this.elements.forEach((element) => {
+      if (isColliding(player, element)) {
+        this.removeElement(element); // Remove the element if there's a collision
+      }
+    });
+  },
+  // Remove an element
+  removeElement(element) {
+    element.remove();
+    this.elements = this.elements.filter(el => el !== element);
+    // Add 100 gold to the player's total
+  timerValue += 100;
+  localStorage.setItem("gold", timerValue); // Save the updated gold value
+  updateTimer(); // Update the display
+  }
+};
+
+// Initialize the spawn system
+spawn.init();
+
+// COLLISION XD DETECTION
+function isColliding(player, element) {
+  const playerRect = player.getBoundingClientRect();
+  const elementRect = element.getBoundingClientRect();
+
+  return !(
+    playerRect.top > elementRect.bottom ||
+    playerRect.bottom < elementRect.top ||
+    playerRect.left > elementRect.right ||
+    playerRect.right < elementRect.left
+  );
+}
