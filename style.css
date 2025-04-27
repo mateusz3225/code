@@ -94,13 +94,18 @@ body {
     position: absolute; /* Position relative to the viewport */
     top: 50%; /* Center vertically */
     left: 50%; /* Center horizontally */
-
+ 
     width: 150px;
     height: 100px;
     background-color: white;
     color: white;
     transition: top 3.0s ease, left 3.0s ease;
 
+}
+#player img {
+    width: 100%; /* Make the image fill the div */
+    height: 100%; /* Maintain the div's height */
+    object-fit: cover; /* Scale the image to cover the div */
 }
 #text {
     color: white;
