@@ -142,11 +142,16 @@ document.addEventListener("keyup", (event) => {
     
 // Handle movement based on key presses
     function handleMovement() {
+      const playerWidth = player.offsetWidth; // Get the player's width
+  const playerHeight = player.offsetHeight; // Get the player's height
+  const viewportWidth = window.innerWidth; // Get the viewport width
+  const viewportHeight = window.innerHeight; // Get the viewport height
+
       if (keysPressed["ArrowUp"]) {
         playerY = Math.max(0, playerY - step); // Move up
       }
       if (keysPressed["ArrowDown"]) {
-        playerY = Math.min(100, playerY + step); // Move down
+        playerY = Math.min((viewportHeight - playerHeight) / viewportHeight * 100, playerY + step); // Move down
       }
       if (keysPressed["ArrowLeft"]) {
         playerX = Math.max(0, playerX - step); // Move left
@@ -156,7 +161,7 @@ document.addEventListener("keyup", (event) => {
         }
       }
       if (keysPressed["ArrowRight"]) {
-        playerX = Math.min(100, playerX + step); // Move right
+        playerX = Math.min((viewportWidth - playerWidth) / viewportWidth * 100, playerX + step); // Move right
         if (isFlipped) {
           player.style.transform = "scaleX(1)"; // Reset the image to normal
           isFlipped = false;

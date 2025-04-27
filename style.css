@@ -36,6 +36,10 @@ body {
     cursor: url('images/cursor.png'), auto;
     height: 100vh;
     margin: 0;
+    overflow: hidden; /* Prevent scrolling caused by overflow */
+  width: 100%; /* Ensure the body takes up the full width of the viewport */
+  height: 100%; /* Ensure the body takes up the full height of the viewport */
+    
 }
 #textbox {
     color: green;
