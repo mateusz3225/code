@@ -10,7 +10,7 @@
     text-align: center;
     opacity: 1;
 }
-#upgrade2 {width: 150px;
+#upgrade2, #upgrade3, #upgrade4 {width: 150px;
     height: 150px;
     background-color: black;
     color: white;
@@ -21,6 +21,7 @@
     cursor: url('images/Overcursor.png'), pointer;
     text-align: center;
     opacity: 1;
+    
 }
 #timer {
     display: flex;
@@ -86,13 +87,28 @@ body {
     -ms-user-select: none;     /* For Internet Explorer/Edge */
     user-select: none; 
 }
-#upgradeamount{
+#upgradeamount  {
     position: absolute;
-    bottom: -20px;     
+    bottom: -20px; 
+    font-size: 16px;
+    text-align: center;    
 }
 #upgrade2amount{ 
     position: absolute;
     bottom: -20px; 
+    font-size: 16px;
+    text-align: center;   
+}
+#upgrade3amount{ 
+    position: absolute;
+    bottom: -20px; 
+    font-size: 16px;
+}
+#upgrade4amount{ 
+    position: absolute;
+    bottom: -20px; 
+    font-size: 16px;
+    
 }
 #player{
     position: absolute; /* Position relative to the viewport */
@@ -117,6 +133,16 @@ body {
     position: absolute; /* Position it relative to the reset button */
     bottom: 0; /* Align to the bottom */
     left: 160px; /* Place it next to the reset button (adjust for spacing) */
+    color: white;
+    font-size: 24px;
+    display: flex;
+    align-items: center;
+    height: 75px; /* Match the height of the reset button */
+}
+#exp {
+    position: absolute; /* Position it relative to the reset button */
+    bottom: 0; /* Align to the bottom */
+    left: 50%; /* Align to the left */
     color: white;
     font-size: 24px;
     display: flex;

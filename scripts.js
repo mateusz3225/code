@@ -4,6 +4,12 @@ const upgrade2amount = document.getElementById("upgrade2amount");
 let timerValue = parseInt(localStorage.getItem("gold")) || 0;
 let increase = parseInt(localStorage.getItem("increaseInt")) || 1;
 let textboxElement = document.getElementById("textbox");
+let xp = parseInt(localStorage.getItem("xp")) || 0;
+const xpElement = document.getElementById("exp");
+// DEBUGGING
+//setGold(10000000);
+
+
 // Gold timer
 function updateTimer() {
   timerValue += increase;
@@ -74,14 +80,24 @@ document.querySelectorAll('[draggable="false"]').forEach(element => {
 // simple upgrades
 const upgrade = document.getElementById("upgrade");
 const upgrade2 = document.getElementById("upgrade2");
+const upgrade3 = document.getElementById("upgrade3");
+const upgrade4 = document.getElementById("upgrade4");
 counter1 = document.getElementById("upgradeamount");
 counter2 = document.getElementById("upgrade2amount");
+counter3 = document.getElementById("upgrade3amount");
+counter4 = document.getElementById("upgrade4amount");
 let counterAmount1 = parseInt(localStorage.getItem("Amount1")) || 0;
 let counterAmount2 = parseInt(localStorage.getItem("Amount2")) || 0;
+let counterAmount3 = parseInt(localStorage.getItem("Amount3")) || 0;
+let counterAmount4 = parseInt(localStorage.getItem("Amount4")) || 0;
 handleUpgrade(upgrade, 1000, 1, "Amount1","upgradeamount");
 handleUpgrade(upgrade2, 10000, 10, "Amount2","upgrade2amount"); 
+handleUpgrade(upgrade3, 100000, 100, "Amount3","upgrade3amount");
+handleUpgrade(upgrade4, 1000000, 1000, "Amount4","upgrade4amount");
 counter1.textContent = `${counterAmount1}`; 
 counter2.textContent = `${counterAmount2}`;
+counter3.textContent = `${counterAmount3}`;
+counter4.textContent = `${counterAmount4}`;
 
 
 // fades the textbox
@@ -114,8 +130,15 @@ resetButton.addEventListener("click", () => {
   textboxElement.style.color = "white"; // Change text color to red
   localStorage.removeItem("Amount1"); // Remove the counter value from local storage
   localStorage.removeItem("Amount2"); // Remove the counter value from local storage
+  localStorage.removeItem("Amount3"); // Remove the counter value from local storage
+  localStorage.removeItem("Amount4"); // Remove the counter value from local storage
+  localStorage.removeItem("xp"); // Remove the counter value from local storage
   counter1.textContent = "0"; 
   counter2.textContent ="0";
+  counter3.textContent = "0";
+  counter4.textContent = "0";
+  xp = 0; // Reset the XP value to 0
+  xpElement.textContent = `EXP: ${xp}`; // Update the XP display
   fadeout(); 
   }
 });
@@ -224,9 +247,16 @@ const spawn = {
   timerValue += 100;
   localStorage.setItem("gold", timerValue); // Save the updated gold value
   updateTimer(); // Update the display
-  }
+  xp += 1;
+  updateXP();
+  } 
 };
-
+// Update XP display
+function updateXP() {
+  xpElement.textContent = `EXP: ${xp}`; // Update the XP display
+  localStorage.setItem("xp", xp); // Save XP to localStorage
+}
+updateXP(); // Initial call to set the XP display immediately
 // Initialize the spawn system
 spawn.init();
 
@@ -241,4 +271,14 @@ function isColliding(player, element) {
     playerRect.left > elementRect.right ||
     playerRect.right < elementRect.left
   );
+}
+// debug funtion to set gold to any amount
+function setGold(amount) {
+  timerValue = amount;
+  localStorage.setItem("gold", timerValue); // Save the updated gold value
+  updateTimer(); // Update the display
+  textboxElement.style.transition = "opacity 2s ease"; // Set the transition for opacity
+  textboxElement.textContent = `Gold set to ${amount}`;
+  textboxElement.style.color = "white"; // Change text color to red
+  fadeout(); 
 }
