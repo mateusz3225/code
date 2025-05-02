@@ -169,7 +169,7 @@ document.addEventListener("keyup", (event) => {
   const playerHeight = player.offsetHeight; // Get the player's height
   const viewportWidth = window.innerWidth; // Get the viewport width
   const viewportHeight = window.innerHeight; // Get the viewport height
-
+  
       if (keysPressed["ArrowUp"]) {
         playerY = Math.max(0, playerY - step); // Move up
       }
@@ -191,12 +191,15 @@ document.addEventListener("keyup", (event) => {
         }
       }
       updatePlayerPosition();
+      
+      createPath(playerX, playerY);
     }
 
   
   
   updatePlayerPosition();
   setInterval(handleMovement, 16);
+  
   
 // SPAWNING GOLD
 const spawn = {
@@ -282,3 +285,27 @@ function setGold(amount) {
   textboxElement.style.color = "white"; // Change text color to red
   fadeout(); 
 }
+
+// path of player
+let isMoving = false; 
+function createPath(x, y) {
+  
+  
+  const path = document.createElement("div");
+  path.classList.add("path");
+  path.style.position = "absolute";
+  path.style.left = `${x+4}%`;
+  path.style.top = `${y+5}%`;
+  
+  document.body.appendChild(path);
+ 
+  
+  setTimeout(() => {
+    path.remove();
+    
+  }, 100);
+  
+
+}
+
+//settings
