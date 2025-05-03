@@ -288,7 +288,7 @@ function setGold(amount) {
 
 // path of player
 function createPath(x, y) {
-  
+  if (!trailEnabled) return;
   
   const path = document.createElement("div");
   path.classList.add("path");
@@ -311,7 +311,7 @@ function createPath(x, y) {
 const settingsButton = document.getElementById("settingsButton");
 const settingsModal = document.getElementById("settingsModal");
 const closeSettings = document.getElementById("closeSettings");
-const saveSettings = document.getElementById("saveSettings");
+//const saveSettings = document.getElementById("saveSettings");
 
 // Open the settings modal
 settingsButton.addEventListener("click", () => {
@@ -325,16 +325,24 @@ closeSettings.addEventListener("click", () => {
   settingsModal.style.display = "none"; // Hide the modal
 });
 
-// Save settings (example functionality)
-saveSettings.addEventListener("click", () => {
-  const trailEnabled = document.getElementById("toggleTrail").checked;
-  const animationsEnabled = document.getElementById("toggleAnimations").checked;
+
+//saveSettings.addEventListener("click", () => {
+  //const trailEnabled = document.getElementById("toggleTrail").checked;
+  //const animationsEnabled = document.getElementById("toggleAnimations").checked;
 
   // Save settings to localStorage or handle them as needed
-  localStorage.setItem("TrailEnabled", trailEnabled);
-  localStorage.setItem("animationsEnabled", animationsEnabled);
+  //localStorage.setItem("TrailEnabled", trailEnabled);
+  //localStorage.setItem("animationsEnabled", animationsEnabled);
 
-  alert("Settings saved!");
-  settingsModal.classList.add("hidden");
-  settingsModal.style.display = "none"; // Hide the modal
+  //alert("Settings saved!");
+  //settingsModal.classList.add("hidden");
+  //settingsModal.style.display = "none"; // Hide the modal
+//});
+
+const toggleTrailCheckbox = document.getElementById("toggleTrail");
+let trailEnabled = true; // Default state for the trail
+
+// Listen for changes to the toggleTrail checkbox
+toggleTrailCheckbox.addEventListener("change", (event) => {
+  trailEnabled = event.target.checked; // Update the trail state
 });
