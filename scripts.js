@@ -287,7 +287,6 @@ function setGold(amount) {
 }
 
 // path of player
-let isMoving = false; 
 function createPath(x, y) {
   
   
@@ -308,4 +307,34 @@ function createPath(x, y) {
 
 }
 
-//settings
+//settings button
+const settingsButton = document.getElementById("settingsButton");
+const settingsModal = document.getElementById("settingsModal");
+const closeSettings = document.getElementById("closeSettings");
+const saveSettings = document.getElementById("saveSettings");
+
+// Open the settings modal
+settingsButton.addEventListener("click", () => {
+  settingsModal.classList.remove("hidden");
+  settingsModal.style.display = "flex"; // Show the modal
+});
+
+// Close the settings modal
+closeSettings.addEventListener("click", () => {
+  settingsModal.classList.add("hidden");
+  settingsModal.style.display = "none"; // Hide the modal
+});
+
+// Save settings (example functionality)
+saveSettings.addEventListener("click", () => {
+  const trailEnabled = document.getElementById("toggleTrail").checked;
+  const animationsEnabled = document.getElementById("toggleAnimations").checked;
+
+  // Save settings to localStorage or handle them as needed
+  localStorage.setItem("TrailEnabled", trailEnabled);
+  localStorage.setItem("animationsEnabled", animationsEnabled);
+
+  alert("Settings saved!");
+  settingsModal.classList.add("hidden");
+  settingsModal.style.display = "none"; // Hide the modal
+});
